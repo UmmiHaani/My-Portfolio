@@ -24,6 +24,15 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    proxy: {
+      '/api/github': {
+        target: 'https://api.github.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/github/, ''),
+      },
+    },
+  },
   resolve: {
     alias: {
       // Alias @ to the src directory
