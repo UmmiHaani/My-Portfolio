@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#12181f"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg2)"/>
+  <text x="400" y="240" fill="#c9a227" font-family="system-ui,sans-serif" font-size="28" font-weight="700" text-anchor="middle">Agent Kennedy</text>
+  <text x="400" y="280" fill="#8b949e" font-family="system-ui,sans-serif" font-size="16" text-anchor="middle">Replace with /leon/leon-2.jpg</text>
+</svg>

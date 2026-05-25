@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360">
+  <rect width="560" height="360" fill="#161b22"/>
+  <rect x="24" y="24" width="120" height="312" rx="8" fill="#21262d"/>
+  <rect x="160" y="24" width="376" height="140" rx="8" fill="#30363d"/>
+  <rect x="160" y="180" width="180" height="156" rx="8" fill="#21262d"/>
+  <rect x="356" y="180" width="180" height="156" rx="8" fill="#30363d"/>
+  <text x="280" y="200" fill="#58a6ff" font-family="system-ui,sans-serif" font-size="20" font-weight="600" text-anchor="middle">Project Three</text>
+</svg>

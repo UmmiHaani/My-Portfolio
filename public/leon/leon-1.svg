@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1510"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg1)"/>
+  <ellipse cx="400" cy="520" rx="320" ry="80" fill="#000" opacity="0.5"/>
+  <text x="400" y="240" fill="#58a6ff" font-family="system-ui,sans-serif" font-size="28" font-weight="700" text-anchor="middle">Leon Kennedy</text>
+  <text x="400" y="280" fill="#8b949e" font-family="system-ui,sans-serif" font-size="16" text-anchor="middle">Replace with /leon/leon-1.jpg</text>
+</svg>
