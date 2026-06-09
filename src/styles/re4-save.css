@@ -136,7 +136,7 @@
 .re4-saving-bar__fill {
   height: 100%;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.35), #ffffff);
-  animation: re4-save-progress 1.2s ease-out forwards;
+  animation: re4-save-progress var(--re4-save-duration, 8s) ease-out forwards;
 }
 
 @keyframes re4-save-progress {

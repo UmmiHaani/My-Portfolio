@@ -1,10 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
 import { Save, Package, Briefcase, LucideIcon } from "lucide-react";
+import { playUiClickSound } from "../lib/re4Audio";
 
 const SAVE_IMAGE = "/re4-save-typewriter.png";
+const TYPEWRITER_AUDIO = "/audio/re4-typewriter.mp3";
+const MENU_CONFIRM_AUDIO = "/audio/re4-typewriter-confirm.mp3";
+const TYPEWRITER_VOLUME = 0.4;
+const MENU_CONFIRM_VOLUME = 0.65;
+const SAVE_DONE_HOLD_MS = 600;
+const SAVE_DURATION_FALLBACK_MS = 8000;
 
 type MenuOption = "save" | "storage" | "case";
 
@@ -23,17 +30,121 @@ interface SaveRoomCornerProps {
   githubUrl: string;
 }
 
+function shouldPlayTypewriterMusic(): boolean {
+  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selected, setSelected] = useState<MenuOption>("save");
   const [phase, setPhase] = useState<"menu" | "saving" | "done">("menu");
+  const [saveBarDurationMs, setSaveBarDurationMs] = useState(
+    SAVE_DURATION_FALLBACK_MS,
+  );
   const dialogRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const confirmAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  const getAudio = useCallback(() => {
+    if (!audioRef.current) {
+      const audio = new Audio(TYPEWRITER_AUDIO);
+      audio.loop = false;
+      audio.volume = TYPEWRITER_VOLUME;
+      audio.preload = "metadata";
+      audioRef.current = audio;
+    }
+    return audioRef.current;
+  }, []);
+
+  const playTypewriterMusic = useCallback(() => {
+    if (!shouldPlayTypewriterMusic()) return;
+    const audio = getAudio();
+    audio.currentTime = 0;
+    void audio.play().catch(() => {});
+  }, [getAudio]);
+
+  const stopTypewriterMusic = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+  }, []);
+
+  const getConfirmAudio = useCallback(() => {
+    if (!confirmAudioRef.current) {
+      const sfx = new Audio(MENU_CONFIRM_AUDIO);
+      sfx.volume = MENU_CONFIRM_VOLUME;
+      sfx.preload = "auto";
+      confirmAudioRef.current = sfx;
+    }
+    return confirmAudioRef.current;
+  }, []);
+
+  const getConfirmAudioDurationMs = useCallback(async () => {
+    const sfx = getConfirmAudio();
+
+    if (Number.isFinite(sfx.duration) && sfx.duration > 0) {
+      return Math.round(sfx.duration * 1000);
+    }
+
+    await new Promise<void>((resolve) => {
+      if (Number.isFinite(sfx.duration) && sfx.duration > 0) {
+        resolve();
+        return;
+      }
+      const onReady = () => {
+        sfx.removeEventListener("loadedmetadata", onReady);
+        resolve();
+      };
+      sfx.addEventListener("loadedmetadata", onReady);
+      sfx.load();
+    });
+
+    return Number.isFinite(sfx.duration) && sfx.duration > 0
+      ? Math.round(sfx.duration * 1000)
+      : SAVE_DURATION_FALLBACK_MS;
+  }, [getConfirmAudio]);
+
+  const playMenuConfirmSound = useCallback(() => {
+    if (!shouldPlayTypewriterMusic()) return;
+    const sfx = getConfirmAudio();
+    sfx.currentTime = 0;
+    void sfx.play().catch(() => {});
+  }, [getConfirmAudio]);
 
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
     setPhase("menu");
     setSelected("save");
   }, []);
+
+  const openMenu = useCallback(() => {
+    playUiClickSound();
+    setMenuOpen(true);
+    setPhase("menu");
+    setSelected("save");
+    playTypewriterMusic();
+  }, [playTypewriterMusic]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    void getConfirmAudio().load();
+  }, [menuOpen, getConfirmAudio]);
+
+  useEffect(() => {
+    return () => {
+      stopTypewriterMusic();
+      confirmAudioRef.current?.pause();
+      audioRef.current = null;
+      confirmAudioRef.current = null;
+    };
+  }, [stopTypewriterMusic]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      stopTypewriterMusic();
+    }
+  }, [menuOpen, stopTypewriterMusic]);
 
   const showToast = useCallback(
     (title: string, description: string) => {
@@ -51,12 +162,14 @@ export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
   );
 
   const runSave = useCallback(async () => {
+    const durationMs = await getConfirmAudioDurationMs();
+    setSaveBarDurationMs(durationMs);
     setPhase("saving");
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, durationMs));
     try {
       await navigator.clipboard.writeText(email);
       setPhase("done");
-      await new Promise((r) => setTimeout(r, 700));
+      await new Promise((r) => setTimeout(r, SAVE_DONE_HOLD_MS));
       closeMenu();
       showToast("Save successful.", "Your progress has been stored.");
     } catch {
@@ -64,10 +177,12 @@ export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
       window.open(githubUrl, "_blank", "noopener,noreferrer");
       showToast("Save successful.", "Opened GitHub storage.");
     }
-  }, [email, githubUrl, showToast, closeMenu]);
+  }, [email, githubUrl, showToast, closeMenu, getConfirmAudioDurationMs]);
 
   const executeOption = useCallback(
     (option: MenuOption) => {
+      playMenuConfirmSound();
+
       if (option === "save") {
         runSave();
       } else if (option === "storage") {
@@ -81,7 +196,7 @@ export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
         });
       }
     },
-    [closeMenu, email, githubUrl, runSave, showToast],
+    [closeMenu, email, githubUrl, runSave, showToast, playMenuConfirmSound],
   );
 
   const cycleSelection = useCallback((direction: 1 | -1) => {
@@ -233,8 +348,18 @@ export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
                     <p className="re4-save-prompt text-lg mb-6">
                       Saving...
                     </p>
-                    <div className="re4-saving-bar w-48 max-w-[60%]">
-                      <div className="re4-saving-bar__fill" />
+                    <div
+                      className="re4-saving-bar w-48 max-w-[60%]"
+                      style={
+                        {
+                          "--re4-save-duration": `${saveBarDurationMs}ms`,
+                        } as CSSProperties
+                      }
+                    >
+                      <div
+                        key={saveBarDurationMs}
+                        className="re4-saving-bar__fill"
+                      />
                     </div>
                   </>
                 )}
@@ -255,11 +380,7 @@ export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
     <>
       <button
         type="button"
-        onClick={() => {
-          setMenuOpen(true);
-          setPhase("menu");
-          setSelected("save");
-        }}
+        onClick={openMenu}
         className="re4-save-ui absolute bottom-4 right-4 md:bottom-6 md:right-6 z-10 group"
         aria-label="Open typewriter save room"
       >

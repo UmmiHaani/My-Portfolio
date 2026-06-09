@@ -5,6 +5,7 @@ import { Github } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { SaveRoomCorner } from "./SaveRoomCorner";
 import { useIsMobile } from "./ui/use-mobile";
+import { playUiClickSound } from "../lib/re4Audio";
 
 const PANEL_WIDTH = 300;
 const SLIDE_HEIGHT = Math.round(PANEL_WIDTH * (611 / 1024));
@@ -27,7 +28,7 @@ interface FeaturedProjectsProps {
 
 export function FeaturedProjects({
   projects,
-  saveEmail = "haani.shahrul@gmail.com",
+  saveEmail = "shahrulhaani@gmail.com",
   saveGithub = "https://github.com/UmmiHaani",
 }: FeaturedProjectsProps) {
   const isMobile = useIsMobile();
@@ -195,6 +196,7 @@ export function FeaturedProjects({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="re4-projects-link"
+                    onClick={playUiClickSound}
                     onMouseDown={hidePreview}
                     onFocus={hidePreview}
                   >
@@ -210,6 +212,7 @@ export function FeaturedProjects({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="re4-projects-link"
+                      onClick={playUiClickSound}
                       onMouseDown={hidePreview}
                       onFocus={hidePreview}
                     >

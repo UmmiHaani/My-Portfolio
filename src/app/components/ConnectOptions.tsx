@@ -13,6 +13,7 @@ import {
   ExternalLink,
   type LucideIcon,
 } from "lucide-react";
+import { playUiClickSound } from "../lib/re4Audio";
 
 const RESEARCH_URL =
   "https://www.atlantis-press.com/proceedings/icar-t1-25/126023530";
@@ -97,7 +98,10 @@ export function ConnectOptions({
   const resumeDialogRef = useRef<HTMLDivElement>(null);
   const inView = useInView(panelRef, { once: true, margin: "-80px" });
 
-  const closeResume = useCallback(() => setResumeOpen(false), []);
+  const closeResume = useCallback(() => {
+    playUiClickSound();
+    setResumeOpen(false);
+  }, []);
 
   const selectedChannel = CHANNELS.find((c) => c.id === selected)!;
 
@@ -110,6 +114,8 @@ export function ConnectOptions({
 
   const executeOption = useCallback(
     (option: ConnectOption) => {
+      playUiClickSound();
+
       if (option === "save") {
         navigator.clipboard.writeText(email).then(
           () => {
@@ -244,6 +250,7 @@ export function ConnectOptions({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="re4-resume-modal__link"
+                  onClick={playUiClickSound}
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
                   New tab

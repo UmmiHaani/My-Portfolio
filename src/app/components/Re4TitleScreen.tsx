@@ -1,8 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
+import { playUiClickSound, preloadUiClickSound } from "../lib/re4Audio";
 
 type MenuOption = "continue" | "projects" | "connect";
+
+const TITLE_THEME_AUDIO = "/audio/re4-title-theme.mp3";
+const TITLE_NAV_AUDIO = "/audio/re4-title-nav.mp3";
+
+const TITLE_THEME_VOLUME = 0.4;
+const TITLE_NAV_VOLUME = 0.55;
 
 const MENU_ITEMS: { id: MenuOption; label: string; hint: string }[] = [
   { id: "continue", label: "Continue", hint: "Enter the portfolio" },
@@ -16,44 +23,118 @@ const SCROLL_TARGETS: Record<MenuOption, string | null> = {
   connect: "#connect",
 };
 
+function shouldPlayUiAudio(): boolean {
+  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function playOneShotSfx(path: string, volume: number) {
+  if (!shouldPlayUiAudio()) return;
+  const sfx = new Audio(path);
+  sfx.volume = volume;
+  sfx.preload = "auto";
+  void sfx.play().catch(() => {});
+}
+
 export function Re4TitleScreen() {
   const [visible, setVisible] = useState(true);
   const [selected, setSelected] = useState<MenuOption>("continue");
   const dialogRef = useRef<HTMLDivElement>(null);
+  const themeAudioRef = useRef<HTMLAudioElement | null>(null);
+  const themeStartedRef = useRef(false);
 
-  const dismiss = useCallback((target: MenuOption) => {
-    setVisible(false);
+  const getThemeAudio = useCallback(() => {
+    if (!themeAudioRef.current) {
+      const audio = new Audio(TITLE_THEME_AUDIO);
+      audio.loop = false;
+      audio.volume = TITLE_THEME_VOLUME;
+      audio.preload = "auto";
+      themeAudioRef.current = audio;
+    }
+    return themeAudioRef.current;
+  }, []);
 
-    const hash = SCROLL_TARGETS[target];
-    window.setTimeout(() => {
-      if (hash) {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+  const startTitleTheme = useCallback(() => {
+    if (!shouldPlayUiAudio()) return;
+    const audio = getThemeAudio();
+    if (!audio.paused && themeStartedRef.current) return;
+    audio.currentTime = 0;
+    void audio.play().then(() => {
+      themeStartedRef.current = true;
+    }).catch(() => {});
+  }, [getThemeAudio]);
+
+  const stopTitleTheme = useCallback(() => {
+    const audio = themeAudioRef.current;
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    themeStartedRef.current = false;
+  }, []);
+
+  const playNavSound = useCallback(() => {
+    playOneShotSfx(TITLE_NAV_AUDIO, TITLE_NAV_VOLUME);
+  }, []);
+
+  const dismiss = useCallback(
+    (target: MenuOption) => {
+      playUiClickSound();
+      stopTitleTheme();
+      setVisible(false);
+
+      const hash = SCROLL_TARGETS[target];
+      window.setTimeout(() => {
+        if (hash) {
+          document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }, 350);
+    },
+    [stopTitleTheme],
+  );
+
+  const selectMenuItem = useCallback(
+    (id: MenuOption) => {
+      if (id !== selected) {
+        setSelected(id);
+        playNavSound();
       }
-    }, 350);
-  }, []);
+    },
+    [selected, playNavSound],
+  );
 
-  const cycleSelection = useCallback((direction: 1 | -1) => {
-    setSelected((current) => {
-      const ids = MENU_ITEMS.map((m) => m.id);
-      const idx = ids.indexOf(current);
-      return ids[(idx + direction + ids.length) % ids.length];
-    });
-  }, []);
+  const cycleSelection = useCallback(
+    (direction: 1 | -1) => {
+      setSelected((current) => {
+        const ids = MENU_ITEMS.map((m) => m.id);
+        const idx = ids.indexOf(current);
+        const next = ids[(idx + direction + ids.length) % ids.length];
+        if (next !== current) {
+          playNavSound();
+        }
+        return next;
+      });
+    },
+    [playNavSound],
+  );
 
   useEffect(() => {
     if (!visible) {
       document.body.style.overflow = "";
+      stopTitleTheme();
       return;
     }
 
     window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
+    preloadUiClickSound();
+    startTitleTheme();
 
     const focusTimer = window.setTimeout(() => dialogRef.current?.focus(), 0);
 
     const onKeyDown = (e: KeyboardEvent) => {
+      startTitleTheme();
+
       if (e.key === "Escape") {
         e.preventDefault();
         dismiss("continue");
@@ -76,8 +157,23 @@ export function Re4TitleScreen() {
       window.clearTimeout(focusTimer);
       window.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
+      stopTitleTheme();
     };
-  }, [visible, selected, dismiss, cycleSelection]);
+  }, [
+    visible,
+    selected,
+    dismiss,
+    cycleSelection,
+    startTitleTheme,
+    stopTitleTheme,
+  ]);
+
+  useEffect(() => {
+    return () => {
+      stopTitleTheme();
+      themeAudioRef.current = null;
+    };
+  }, [stopTitleTheme]);
 
   const overlay =
     visible &&
@@ -91,6 +187,7 @@ export function Re4TitleScreen() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
+          onPointerDown={startTitleTheme}
           role="dialog"
           aria-modal
           aria-label="Resident Evil 4 title menu"
@@ -126,7 +223,7 @@ export function Re4TitleScreen() {
                       className={`re4-save-menu-hit flex w-full items-center px-3 py-3 text-left ${
                         isActive ? "re4-save-menu-hit--active" : ""
                       }`}
-                      onMouseEnter={() => setSelected(item.id)}
+                      onMouseEnter={() => selectMenuItem(item.id)}
                       onClick={() => dismiss(item.id)}
                     >
                       <span

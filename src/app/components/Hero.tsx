@@ -120,12 +120,12 @@ export function Hero() {
 
         <FeaturedProjects
           projects={projects}
-          saveEmail="haani.shahrul@example.com"
+          saveEmail="shahrulhaani@gmail.com"
           saveGithub={GITHUB_PROFILE}
         />
 
         <ConnectOptions
-          email="haani.shahrul@example.com"
+          email="shahrulhaani@gmail.com"
           githubUrl={GITHUB_PROFILE}
         />
       </div>

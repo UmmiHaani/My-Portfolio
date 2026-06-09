@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { playUiClickSound } from "../lib/re4Audio";
 
 function CardImage({ card }: { card: StackedCard }) {
   const [src, setSrc] = useState(card.image ?? "");
@@ -123,6 +124,7 @@ export function StackedCardCarousel({
 
   const goToSlide = (index: number) => {
     if (isAnimating || index === currentSlide) return;
+    playUiClickSound();
     setIsAnimating(true);
     setCurrentSlide(index);
     window.setTimeout(() => setIsAnimating(false), 550);
@@ -130,6 +132,7 @@ export function StackedCardCarousel({
 
   const nextSlide = () => {
     if (isAnimating) return;
+    playUiClickSound();
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % cards.length);
     window.setTimeout(() => setIsAnimating(false), 550);
@@ -137,6 +140,7 @@ export function StackedCardCarousel({
 
   const prevSlide = () => {
     if (isAnimating) return;
+    playUiClickSound();
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + cards.length) % cards.length);
     window.setTimeout(() => setIsAnimating(false), 550);
