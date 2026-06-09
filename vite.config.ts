@@ -25,6 +25,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
+    port: 8000,
     proxy: {
       '/api/github': {
         target: 'https://api.github.com',

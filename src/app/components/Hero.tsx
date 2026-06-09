@@ -2,10 +2,8 @@ import React from "react";
 import { Badge } from "./ui/badge";
 import { ConnectOptions } from "./ConnectOptions";
 import { FeaturedProjects } from "./FeaturedProjects";
-import { GitHubProfileStats } from "./GitHubProfileStats";
 import { StackedCardCarousel } from "./StackedCardCarousel";
 
-const GITHUB_USERNAME = "UmmiHaani";
 const GITHUB_PROFILE = "https://github.com/UmmiHaani";
 
 /** Languages reflected in @UmmiHaani public repositories (by actual project work). */
@@ -72,18 +70,6 @@ export function Hero() {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-gray-300">
-      {/* Hero Banner */}
-      <div className="relative w-full bg-white border-b border-[#30363d]">
-        <div className="relative max-w-5xl mx-auto px-8 py-20 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-7xl md:text-8xl mb-6 tracking-tight text-black font-black italic transform -skew-x-6">
-              Haani Shahrul
-            </h1>
-            <GitHubProfileStats username={GITHUB_USERNAME} />
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-5xl mx-auto px-8 py-16 space-y-16">
         {/* Know About Me Section */}
         <section className="re4-save-ui">
