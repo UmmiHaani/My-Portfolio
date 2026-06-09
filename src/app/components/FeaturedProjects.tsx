@@ -27,7 +27,7 @@ interface FeaturedProjectsProps {
 
 export function FeaturedProjects({
   projects,
-  saveEmail = "haani.shahrul@example.com",
+  saveEmail = "haani.shahrul@gmail.com",
   saveGithub = "https://github.com/UmmiHaani",
 }: FeaturedProjectsProps) {
   const isMobile = useIsMobile();

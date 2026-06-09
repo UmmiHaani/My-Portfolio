@@ -1,3 +1,4 @@
+import React from "react";
 import { Hero } from "./components/Hero";
 import { Re4AmmoHud } from "./components/Re4AmmoHud";
 import { Re4TitleScreen } from "./components/Re4TitleScreen";
