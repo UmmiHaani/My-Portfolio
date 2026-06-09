@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
 import { Save, Package, Briefcase, LucideIcon } from "lucide-react";
-import { playUiClickSound } from "../lib/re4Audio";
+import { playTitleNavOnHover, playUiClickSound } from "../lib/re4Audio";
 
 const SAVE_IMAGE = "/re4-save-typewriter.png";
 const TYPEWRITER_AUDIO = "/audio/re4-typewriter.mp3";
@@ -199,14 +199,27 @@ export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
     [closeMenu, email, githubUrl, runSave, showToast, playMenuConfirmSound],
   );
 
-  const cycleSelection = useCallback((direction: 1 | -1) => {
-    setSelected((current) => {
+  const selectMenuItem = useCallback(
+    (id: MenuOption) => {
+      if (id === selected) return;
+      playTitleNavOnHover();
+      setSelected(id);
+    },
+    [selected],
+  );
+
+  const cycleSelection = useCallback(
+    (direction: 1 | -1) => {
       const ids = MENU_ITEMS.map((m) => m.id);
-      const idx = ids.indexOf(current);
-      const next = (idx + direction + ids.length) % ids.length;
-      return ids[next];
-    });
-  }, []);
+      const idx = ids.indexOf(selected);
+      const next = ids[(idx + direction + ids.length) % ids.length];
+      if (next !== selected) {
+        playTitleNavOnHover();
+      }
+      setSelected(next);
+    },
+    [selected],
+  );
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -298,7 +311,7 @@ export function SaveRoomCorner({ email, githubUrl }: SaveRoomCornerProps) {
                             className={`re4-save-menu-hit flex w-full items-center gap-3 pl-1 pr-2 py-2 md:py-2.5 text-left ${
                               isActive ? "re4-save-menu-hit--active" : ""
                             }`}
-                            onMouseEnter={() => setSelected(item.id)}
+                            onMouseEnter={() => selectMenuItem(item.id)}
                             onClick={() => {
                               setSelected(item.id);
                               executeOption(item.id);

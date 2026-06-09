@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { playUiClickSound, preloadUiClickSound } from "../lib/re4Audio";
+import {
+  isTitleAudioUnlocked,
+  playTitleNavOnHover,
+  playTitleNavSound,
+  playUiClickSound,
+  preloadTitleAudio,
+  stopTitleTheme,
+  unlockTitleAudio,
+} from "../lib/re4Audio";
 
 type MenuOption = "continue" | "projects" | "connect";
-
-const TITLE_THEME_AUDIO = "/audio/re4-title-theme.mp3";
-const TITLE_NAV_AUDIO = "/audio/re4-title-nav.mp3";
-
-const TITLE_THEME_VOLUME = 0.4;
-const TITLE_NAV_VOLUME = 0.55;
 
 const MENU_ITEMS: { id: MenuOption; label: string; hint: string }[] = [
   { id: "continue", label: "Continue", hint: "Enter the portfolio" },
@@ -23,100 +25,46 @@ const SCROLL_TARGETS: Record<MenuOption, string | null> = {
   connect: "#connect",
 };
 
-function shouldPlayUiAudio(): boolean {
-  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function playOneShotSfx(path: string, volume: number) {
-  if (!shouldPlayUiAudio()) return;
-  const sfx = new Audio(path);
-  sfx.volume = volume;
-  sfx.preload = "auto";
-  void sfx.play().catch(() => {});
+function nextSelection(current: MenuOption, direction: 1 | -1): MenuOption {
+  const ids = MENU_ITEMS.map((m) => m.id);
+  const idx = ids.indexOf(current);
+  return ids[(idx + direction + ids.length) % ids.length];
 }
 
 export function Re4TitleScreen() {
   const [visible, setVisible] = useState(true);
   const [selected, setSelected] = useState<MenuOption>("continue");
+  const [audioReady, setAudioReady] = useState(isTitleAudioUnlocked);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const themeAudioRef = useRef<HTMLAudioElement | null>(null);
-  const themeStartedRef = useRef(false);
+  const selectedRef = useRef(selected);
 
-  const getThemeAudio = useCallback(() => {
-    if (!themeAudioRef.current) {
-      const audio = new Audio(TITLE_THEME_AUDIO);
-      audio.loop = false;
-      audio.volume = TITLE_THEME_VOLUME;
-      audio.preload = "auto";
-      themeAudioRef.current = audio;
-    }
-    return themeAudioRef.current;
+  selectedRef.current = selected;
+
+  const markAudioReady = useCallback(() => {
+    unlockTitleAudio();
+    setAudioReady(true);
   }, []);
 
-  const startTitleTheme = useCallback(() => {
-    if (!shouldPlayUiAudio()) return;
-    const audio = getThemeAudio();
-    if (!audio.paused && themeStartedRef.current) return;
-    audio.currentTime = 0;
-    void audio.play().then(() => {
-      themeStartedRef.current = true;
-    }).catch(() => {});
-  }, [getThemeAudio]);
+  const dismiss = useCallback((target: MenuOption) => {
+    playUiClickSound();
+    stopTitleTheme();
+    setVisible(false);
 
-  const stopTitleTheme = useCallback(() => {
-    const audio = themeAudioRef.current;
-    if (!audio) return;
-    audio.pause();
-    audio.currentTime = 0;
-    themeStartedRef.current = false;
-  }, []);
-
-  const playNavSound = useCallback(() => {
-    playOneShotSfx(TITLE_NAV_AUDIO, TITLE_NAV_VOLUME);
-  }, []);
-
-  const dismiss = useCallback(
-    (target: MenuOption) => {
-      playUiClickSound();
-      stopTitleTheme();
-      setVisible(false);
-
-      const hash = SCROLL_TARGETS[target];
-      window.setTimeout(() => {
-        if (hash) {
-          document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-        } else {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-      }, 350);
-    },
-    [stopTitleTheme],
-  );
-
-  const selectMenuItem = useCallback(
-    (id: MenuOption) => {
-      if (id !== selected) {
-        setSelected(id);
-        playNavSound();
+    const hash = SCROLL_TARGETS[target];
+    window.setTimeout(() => {
+      if (hash) {
+        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    },
-    [selected, playNavSound],
-  );
+    }, 350);
+  }, []);
 
-  const cycleSelection = useCallback(
-    (direction: 1 | -1) => {
-      setSelected((current) => {
-        const ids = MENU_ITEMS.map((m) => m.id);
-        const idx = ids.indexOf(current);
-        const next = ids[(idx + direction + ids.length) % ids.length];
-        if (next !== current) {
-          playNavSound();
-        }
-        return next;
-      });
-    },
-    [playNavSound],
-  );
+  const selectMenuItem = useCallback((id: MenuOption) => {
+    if (id === selectedRef.current) return;
+    playTitleNavOnHover();
+    setSelected(id);
+  }, []);
 
   useEffect(() => {
     if (!visible) {
@@ -127,13 +75,14 @@ export function Re4TitleScreen() {
 
     window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
-    preloadUiClickSound();
-    startTitleTheme();
+    preloadTitleAudio();
 
     const focusTimer = window.setTimeout(() => dialogRef.current?.focus(), 0);
 
     const onKeyDown = (e: KeyboardEvent) => {
-      startTitleTheme();
+      markAudioReady();
+
+      const current = selectedRef.current;
 
       if (e.key === "Escape") {
         e.preventDefault();
@@ -142,38 +91,45 @@ export function Re4TitleScreen() {
       }
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        cycleSelection(1);
+        const next = nextSelection(current, 1);
+        if (next !== current) {
+          playTitleNavSound();
+          setSelected(next);
+        }
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
-        cycleSelection(-1);
+        const next = nextSelection(current, -1);
+        if (next !== current) {
+          playTitleNavSound();
+          setSelected(next);
+        }
       } else if (e.key === "Enter") {
         e.preventDefault();
-        dismiss(selected);
+        dismiss(current);
       }
     };
 
+    const unlockOpts: AddEventListenerOptions = { capture: true, passive: true };
+    const onUnlockGesture = () => markAudioReady();
+
     window.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onUnlockGesture, unlockOpts);
+    document.addEventListener("touchstart", onUnlockGesture, unlockOpts);
+
     return () => {
       window.clearTimeout(focusTimer);
       window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onUnlockGesture, unlockOpts);
+      document.removeEventListener("touchstart", onUnlockGesture, unlockOpts);
       document.body.style.overflow = "";
-      stopTitleTheme();
     };
-  }, [
-    visible,
-    selected,
-    dismiss,
-    cycleSelection,
-    startTitleTheme,
-    stopTitleTheme,
-  ]);
+  }, [visible, dismiss, markAudioReady]);
 
   useEffect(() => {
     return () => {
       stopTitleTheme();
-      themeAudioRef.current = null;
     };
-  }, [stopTitleTheme]);
+  }, []);
 
   const overlay =
     visible &&
@@ -187,7 +143,7 @@ export function Re4TitleScreen() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          onPointerDown={startTitleTheme}
+          onPointerEnter={markAudioReady}
           role="dialog"
           aria-modal
           aria-label="Resident Evil 4 title menu"
@@ -223,6 +179,8 @@ export function Re4TitleScreen() {
                       className={`re4-save-menu-hit flex w-full items-center px-3 py-3 text-left ${
                         isActive ? "re4-save-menu-hit--active" : ""
                       }`}
+                      onMouseDown={markAudioReady}
+                      onPointerDown={markAudioReady}
                       onMouseEnter={() => selectMenuItem(item.id)}
                       onClick={() => dismiss(item.id)}
                     >
@@ -261,6 +219,12 @@ export function Re4TitleScreen() {
                 <kbd className="re4-prompt-key">Esc</kbd> Continue
               </span>
             </div>
+
+            {!audioReady && (
+              <p className="mt-6 text-center text-xs italic text-white/30">
+                Move cursor over menu or click to enable sound
+              </p>
+            )}
           </motion.div>
         </motion.div>
       </AnimatePresence>,

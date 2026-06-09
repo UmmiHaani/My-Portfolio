@@ -13,7 +13,7 @@ import {
   ExternalLink,
   type LucideIcon,
 } from "lucide-react";
-import { playUiClickSound } from "../lib/re4Audio";
+import { playTitleNavOnHover, playUiClickSound } from "../lib/re4Audio";
 
 const RESEARCH_URL =
   "https://www.atlantis-press.com/proceedings/icar-t1-25/126023530";
@@ -176,6 +176,15 @@ export function ConnectOptions({
     };
   }, [resumeOpen, closeResume]);
 
+  const selectChannel = useCallback(
+    (id: ConnectOption) => {
+      if (id === selected) return;
+      playTitleNavOnHover();
+      setSelected(id);
+    },
+    [selected],
+  );
+
   const moveSelection = useCallback((dir: "up" | "down" | "left" | "right") => {
     const [row, col] = gridIndex(selected);
     let nextRow = row;
@@ -186,7 +195,11 @@ export function ConnectOptions({
     if (dir === "left") nextCol = Math.max(0, col - 1);
     if (dir === "right") nextCol = Math.min(GRID_ORDER[0].length - 1, col + 1);
 
-    setSelected(GRID_ORDER[nextRow][nextCol]);
+    const next = GRID_ORDER[nextRow][nextCol];
+    if (next !== selected) {
+      playTitleNavOnHover();
+    }
+    setSelected(next);
   }, [selected]);
 
   useEffect(() => {
@@ -347,7 +360,7 @@ export function ConnectOptions({
                   transition={{ duration: 0.35, delay: 0.08 + index * 0.07 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onMouseEnter={() => setSelected(channel.id)}
+                  onMouseEnter={() => selectChannel(channel.id)}
                   onClick={() => executeOption(channel.id)}
                   className={`re4-connect-card group text-left ${
                     isActive ? "re4-connect-card--active" : ""
