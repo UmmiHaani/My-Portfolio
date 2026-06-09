@@ -6,6 +6,9 @@ import { StackedCardCarousel } from "./StackedCardCarousel";
 
 const GITHUB_PROFILE = "https://github.com/UmmiHaani";
 
+/** Temporary placeholders — restore real URLs when ready to share publicly. */
+const PUBLIC_LINK_PLACEHOLDER = "https://example.com";
+
 /** Languages reflected in @UmmiHaani public repositories (by actual project work). */
 const GITHUB_SKILLS = [
   "PHP",
@@ -45,8 +48,8 @@ export function Hero() {
       description:
         "AI agent web app (Chat, Analyze, Transform, Execute) with conversational UI, streaming responses, and tool integrations for research and automation—powered by Claude, LangGraph, Convex, and Clerk.",
       tech: ["Next.js", "React", "TypeScript", "Convex", "Clerk"],
-      github: "https://github.com/UmmiHaani/C.A.T.E-AI-Agent",
-      demo: "https://c-a-t-e-ai-agent.vercel.app",
+      github: PUBLIC_LINK_PLACEHOLDER,
+      demo: PUBLIC_LINK_PLACEHOLDER,
       previewImage: "/projects/cate.png",
     },
     {
@@ -54,8 +57,8 @@ export function Hero() {
       description:
         "Leave and claims portal with sign-in, registration, and a monthly leave calendar—track annual, medical, emergency, and other staff leave types in one place.",
       tech: ["PHP", "Web", "MySQL"],
-      github: "https://github.com/UmmiHaani/Glosev-Internal-Staff-Management-System",
-      demo: "https://glosev.com/login/index.php",
+      github: PUBLIC_LINK_PLACEHOLDER,
+      demo: PUBLIC_LINK_PLACEHOLDER,
       previewImage: "/projects/glosev.png",
     },
     {
@@ -63,7 +66,7 @@ export function Hero() {
       description:
         "Food ordering project for seasonal and event-based meal flows—repository and live demo links coming soon.",
       tech: ["React", "Node.js"],
-      github: "https://github.com/UmmiHaani/EzFoodAdha.my",
+      github: PUBLIC_LINK_PLACEHOLDER,
       previewImage: "/projects/ezfoodadha.png",
     },
   ];
