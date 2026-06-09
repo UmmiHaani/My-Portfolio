@@ -84,7 +84,7 @@ export function Hero() {
           </header>
 
           <div className="grid md:grid-cols-2 gap-16 items-start">
-            <StackedCardCarousel cards={carouselImages} />
+            <StackedCardCarousel cards={carouselImages} showHint={false} />
 
             <div className="space-y-5 md:pl-6 lg:pl-10">
               <h3 className="text-xl text-white font-semibold">

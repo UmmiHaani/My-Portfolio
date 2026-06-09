@@ -92,14 +92,6 @@ function CardFace({
     return (
       <div className="relative w-full h-full bg-[#0d1117]">
         <CardImage card={card} />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 py-5">
-          <p className="text-white text-sm font-semibold tracking-wide">
-            {card.label}
-          </p>
-          {showHint && (
-            <p className="text-[#8b949e] text-xs mt-1">Click for next</p>
-          )}
-        </div>
       </div>
     );
   }
@@ -202,7 +194,7 @@ export function StackedCardCarousel({
                 }`}
                 aria-label={
                   isFront
-                    ? `${card.label}. Click to send this card to the back of the deck.`
+                    ? `${card.imageAlt ?? card.label}. Click to send this card to the back of the deck.`
                     : undefined
                 }
               >
@@ -236,7 +228,7 @@ export function StackedCardCarousel({
                   ? "w-6 bg-[#58a6ff]"
                   : "w-2 bg-[#30363d] hover:bg-[#484f58]"
               }`}
-              aria-label={`Go to ${cards[index].label}`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
