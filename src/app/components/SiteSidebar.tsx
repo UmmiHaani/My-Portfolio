@@ -164,7 +164,7 @@ function SiteSidebarNav() {
   };
 
   return (
-    <SidebarGroup>
+    <SidebarGroup className="pl-4">
       <SidebarGroupContent>
         <SidebarMenu>
           {NAV_ITEMS.map(({ label, icon: Icon, path }) => {

@@ -175,9 +175,9 @@ export function Re4TitleScreen() {
             transition={{ delay: 0.1, duration: 0.35 }}
           >
             <img
-              src="/favicon.png"
+              src="/logo.png"
               alt="Resident Evil 4"
-              className="mb-6 h-24 w-auto object-contain md:h-32"
+              className="re4-logo mb-6 h-24 w-auto bg-transparent object-contain md:h-32"
             />
 
             <p className="re4-save-heading mb-1 text-center">Haani Shahrul</p>

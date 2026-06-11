@@ -6,9 +6,9 @@ export function SiteFooter() {
       <div className="mx-auto max-w-5xl px-8 py-10">
         <div className="flex items-start gap-4">
           <img
-            src="/favicon.png"
+            src="/logo.png"
             alt=""
-            className="mt-0.5 h-9 w-auto opacity-80"
+            className="re4-logo mt-0.5 h-11 w-auto bg-transparent opacity-80"
             aria-hidden
           />
           <div>
