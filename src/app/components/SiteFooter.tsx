@@ -2,7 +2,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="re4-save-ui border-t border-[#30363d] bg-[#0a0e14]">
+    <footer className="re4-save-ui border-t border-[var(--pf-border)] bg-[var(--pf-bg-elevated)] transition-colors duration-200">
       <div className="mx-auto max-w-5xl px-8 py-10">
         <div className="flex items-start gap-4">
           <img
@@ -12,20 +12,20 @@ export function SiteFooter() {
             aria-hidden
           />
           <div>
-            <p className="re4-save-heading text-sm tracking-[0.22em] text-white">
+            <p className="re4-save-heading text-sm tracking-[0.22em] text-[var(--pf-text)]">
               Haani Shahrul
             </p>
-            <p className="mt-1 text-xs tracking-[0.14em] text-[#6e7681] uppercase">
+            <p className="mt-1 text-xs tracking-[0.14em] text-[var(--pf-text-subtle)] uppercase">
               Computer Science · Portfolio
             </p>
-            <p className="re4-save-prompt mt-3 text-xs text-[#8b949e]">
+            <p className="re4-save-prompt mt-3 text-xs">
               — Transmission complete —
             </p>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-[#21262d] pt-6">
-          <p className="text-xs tracking-[0.06em] text-[#484f58]">
+        <div className="mt-8 border-t border-[var(--pf-border-subtle)] pt-6">
+          <p className="text-xs tracking-[0.06em] text-[var(--pf-text-muted)]">
             © {year} Haani Shahrul. Built with care — not affiliated with
             Capcom.
           </p>

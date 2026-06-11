@@ -1,29 +1,49 @@
 import React from "react";
-import { Hero } from "./components/Hero";
+import { Route, Routes } from "react-router";
 import { Re4AmmoHud } from "./components/Re4AmmoHud";
-import { Re4TitleScreen } from "./components/Re4TitleScreen";
-import { SiteFooter } from "./components/SiteFooter";
+import { SiteSidebar } from "./components/SiteSidebar";
+import { ThemeProvider } from "./components/ThemeProvider";
+import { useTheme } from "./hooks/useTheme";
+import { HomePage } from "./pages/HomePage";
+import { PlaceholderPage } from "./pages/PlaceholderPage";
+import { SidebarInset, SidebarProvider } from "./components/ui/sidebar";
 import { Toaster } from "sonner";
 
-export default function App() {
+function AppContent() {
+  const { theme } = useTheme();
+
   return (
-    <div className="min-h-screen bg-[#0d1117] scroll-smooth">
-      <Re4TitleScreen />
-      <Hero />
-      <SiteFooter />
+    <SidebarProvider
+      className="min-h-screen bg-[var(--pf-bg)] transition-colors duration-200"
+      style={{ "--sidebar-width": "16rem" } as React.CSSProperties}
+    >
+      <SiteSidebar />
+      <SidebarInset className="scroll-smooth bg-[var(--pf-bg)] transition-colors duration-200">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/experience" element={<PlaceholderPage />} />
+          <Route path="/projects" element={<PlaceholderPage />} />
+          <Route path="/blogs" element={<PlaceholderPage />} />
+          <Route path="/contact" element={<PlaceholderPage />} />
+          <Route path="/tools" element={<PlaceholderPage />} />
+        </Routes>
+      </SidebarInset>
       <Re4AmmoHud />
       <Toaster
-        theme="dark"
+        theme={theme}
         position="bottom-right"
         toastOptions={{
           className: "re4-toast",
-          style: {
-            background: "#0a0a0a",
-            border: "1px solid #333",
-            color: "#f0f0f0",
-          },
         }}
       />
-    </div>
+    </SidebarProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }

@@ -25,6 +25,24 @@ const SCROLL_TARGETS: Record<MenuOption, string | null> = {
   connect: "#connect",
 };
 
+const TITLE_SCREEN_KEY = "portfolio-title-screen-dismissed";
+
+function hasSeenTitleScreen(): boolean {
+  try {
+    return sessionStorage.getItem(TITLE_SCREEN_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function markTitleScreenSeen(): void {
+  try {
+    sessionStorage.setItem(TITLE_SCREEN_KEY, "true");
+  } catch {
+    // ignore storage errors
+  }
+}
+
 function nextSelection(current: MenuOption, direction: 1 | -1): MenuOption {
   const ids = MENU_ITEMS.map((m) => m.id);
   const idx = ids.indexOf(current);
@@ -32,7 +50,7 @@ function nextSelection(current: MenuOption, direction: 1 | -1): MenuOption {
 }
 
 export function Re4TitleScreen() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(() => !hasSeenTitleScreen());
   const [selected, setSelected] = useState<MenuOption>("continue");
   const [audioReady, setAudioReady] = useState(isTitleAudioUnlocked);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -48,6 +66,7 @@ export function Re4TitleScreen() {
   const dismiss = useCallback((target: MenuOption) => {
     playUiClickSound();
     stopTitleTheme();
+    markTitleScreenSeen();
     setVisible(false);
 
     const hash = SCROLL_TARGETS[target];
@@ -138,7 +157,7 @@ export function Re4TitleScreen() {
         <motion.div
           ref={dialogRef}
           tabIndex={-1}
-          className="re4-save-ui fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black outline-none"
+          className="re4-save-ui re4-title-screen-overlay fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[var(--pf-title-overlay)] outline-none transition-colors duration-200"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -162,7 +181,7 @@ export function Re4TitleScreen() {
             />
 
             <p className="re4-save-heading mb-1 text-center">Haani Shahrul</p>
-            <p className="mb-10 text-center text-xs tracking-[0.35em] text-white/40 uppercase">
+            <p className="mb-10 text-center text-xs tracking-[0.35em] text-[var(--pf-text-subtle)] uppercase">
               Portfolio
             </p>
 
@@ -221,7 +240,7 @@ export function Re4TitleScreen() {
             </div>
 
             {!audioReady && (
-              <p className="mt-6 text-center text-xs italic text-white/30">
+              <p className="mt-6 text-center text-xs italic text-[var(--pf-text-subtle)]">
                 Move cursor over menu or click to enable sound
               </p>
             )}

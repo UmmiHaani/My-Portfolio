@@ -1,4 +1,12 @@
+import { useTheme } from "../hooks/useTheme";
+
 export function Re4AmmoHud() {
+  const { theme } = useTheme();
+
+  if (theme === "light") {
+    return null;
+  }
+
   return (
     <div
       className="pointer-events-none fixed bottom-4 right-4 z-40 sm:bottom-6 sm:right-6"

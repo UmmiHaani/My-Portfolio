@@ -144,7 +144,7 @@ export function FeaturedProjects({
   return (
     <section id="projects" className="re4-save-ui">
       <header className="re4-projects-header flex items-center gap-3">
-        <div className="h-0.5 w-6 shrink-0 bg-[#58a6ff]/80" />
+        <div className="h-0.5 w-6 shrink-0 bg-[var(--pf-accent)]/80" />
         <div>
           <h2 className="re4-projects-header__title">Featured Projects</h2>
           <p className="re4-projects-header__sub">Load Game — Mission files</p>
@@ -160,9 +160,9 @@ export function FeaturedProjects({
             {projects.map((project, index) => (
             <div
               key={project.name}
-              className="re4-projects-row group relative border-l-2 border-[#30363d] pl-8 pb-8 transition-colors hover:border-[#58a6ff]/70 cursor-default"
+              className="re4-projects-row group relative border-l-2 border-[var(--pf-border)] pl-8 pb-8 transition-colors hover:border-[var(--pf-accent)]/70 cursor-default"
             >
-              <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-[#30363d] bg-[#0d1117] transition-colors group-hover:border-[#58a6ff]" />
+              <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full border-2 border-[var(--pf-border)] bg-[var(--pf-bg)] transition-colors group-hover:border-[var(--pf-accent)]" />
 
               <div className="flex flex-col justify-between gap-6 md:flex-row md:items-start">
                 <div

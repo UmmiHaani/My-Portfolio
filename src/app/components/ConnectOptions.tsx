@@ -123,7 +123,7 @@ export function ConnectOptions({
               particleCount: 40,
               spread: 52,
               origin: { y: 0.7 },
-              colors: ["#c9a227", "#58a6ff", "#ebebeb"],
+              colors: ["#111111", "#666666", "#ffffff"],
               disableForReducedMotion: true,
             });
             showToast("Save successful.", "Email copied to clipboard.");
@@ -296,7 +296,7 @@ export function ConnectOptions({
   return (
     <section id="connect" className="re4-save-ui scroll-mt-8">
       <header className="re4-projects-header flex items-center gap-3">
-        <div className="h-0.5 w-6 shrink-0 bg-[#58a6ff]/80" />
+        <div className="h-0.5 w-6 shrink-0 bg-[var(--pf-accent)]/80" />
         <div>
           <h2 className="re4-projects-header__title">Options</h2>
           <p className="re4-projects-header__sub">
@@ -308,7 +308,7 @@ export function ConnectOptions({
       <div
         ref={panelRef}
         tabIndex={0}
-        className="re4-connect-panel outline-none focus-visible:ring-1 focus-visible:ring-[#58a6ff]/50"
+        className="re4-connect-panel outline-none focus-visible:ring-1 focus-visible:ring-[var(--pf-accent)]/50"
         onMouseEnter={() => setEngaged(true)}
         onMouseLeave={() => setEngaged(false)}
         onFocus={() => setEngaged(true)}

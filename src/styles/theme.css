@@ -1,27 +1,49 @@
 @custom-variant dark (&:is(.dark *));
 
-:root {
+:root,
+html[data-theme="dark"] {
   --font-size: 16px;
-  --background: #0d1117;
-  --foreground: #f0f6fc;
-  --card: #161b22;
-  --card-foreground: #f0f6fc;
-  --popover: #161b22;
-  --popover-foreground: #f0f6fc;
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
+
+  /* Portfolio palette — dark (default) */
+  --pf-bg: #0d1117;
+  --pf-bg-elevated: #0a0e14;
+  --pf-surface: #161b22;
+  --pf-surface-muted: #1c2128;
+  --pf-text: #f0f6fc;
+  --pf-text-muted: #8b949e;
+  --pf-text-subtle: #6e7681;
+  --pf-border: #30363d;
+  --pf-border-subtle: #21262d;
+  --pf-accent: #ffffff;
+  --pf-accent-rgb: 255, 255, 255;
+  --pf-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --pf-title-overlay: #000000;
+  --pf-highlight-marker: rgba(200, 205, 212, 0.28);
+  --pf-highlight-cursor: #ffffff;
+  --pf-re-red: #cc0000;
+  --pf-skeleton: var(--pf-surface-muted);
+
+  --background: var(--pf-bg);
+  --foreground: var(--pf-text);
+  --card: var(--pf-surface);
+  --card-foreground: var(--pf-text);
+  --popover: var(--pf-surface);
+  --popover-foreground: var(--pf-text);
+  --primary: var(--pf-text);
+  --primary-foreground: var(--pf-bg);
   --secondary: oklch(0.95 0.0058 264.53);
   --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
+  --muted: var(--pf-surface-muted);
+  --muted-foreground: var(--pf-text-muted);
   --accent: #e9ebef;
   --accent-foreground: #030213;
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: var(--pf-border);
   --input: transparent;
   --input-background: #f3f3f5;
-  --switch-background: #cbced4;
+  --switch-background: var(--pf-border);
   --font-weight-medium: 500;
   --font-weight-normal: 400;
   --ring: oklch(0.708 0 0);
@@ -31,14 +53,56 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #030213;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: var(--pf-surface);
+  --sidebar-foreground: var(--pf-text);
+  --sidebar-primary: var(--pf-accent);
+  --sidebar-primary-foreground: var(--pf-bg);
+  --sidebar-accent: var(--pf-surface-muted);
+  --sidebar-accent-foreground: var(--pf-text);
+  --sidebar-border: var(--pf-border-subtle);
+  --sidebar-ring: var(--pf-accent);
+}
+
+html[data-theme="light"] {
+  --pf-bg: #f4f4f5;
+  --pf-bg-elevated: #ececec;
+  --pf-surface: #ffffff;
+  --pf-surface-muted: #f0f0f0;
+  --pf-text: #111111;
+  --pf-text-muted: #666666;
+  --pf-text-subtle: #888888;
+  --pf-border: #dddddd;
+  --pf-border-subtle: #e8e8e8;
+  --pf-accent: #111111;
+  --pf-accent-rgb: 17, 17, 17;
+  --pf-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --pf-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --pf-title-overlay: #f4f4f5;
+  --pf-highlight-marker: #d4d4d8;
+  --pf-highlight-cursor: #111111;
+  --pf-re-red: #cc0000;
+  --pf-skeleton: #c8c8c8;
+
+  --background: var(--pf-bg);
+  --foreground: var(--pf-text);
+  --card: var(--pf-surface);
+  --card-foreground: var(--pf-text);
+  --popover: var(--pf-surface);
+  --popover-foreground: var(--pf-text);
+  --border: var(--pf-border);
+  --muted: var(--pf-surface-muted);
+  --muted-foreground: var(--pf-text-muted);
+  --primary: var(--pf-text);
+  --primary-foreground: var(--pf-surface);
+  --switch-background: var(--pf-border);
+  --sidebar: var(--pf-surface);
+  --sidebar-foreground: var(--pf-text);
+  --sidebar-primary: var(--pf-accent);
+  --sidebar-primary-foreground: var(--pf-surface);
+  --sidebar-accent: var(--pf-surface-muted);
+  --sidebar-accent-foreground: var(--pf-text);
+  --sidebar-border: var(--pf-border-subtle);
+  --sidebar-ring: var(--pf-border);
 }
 
 .dark {

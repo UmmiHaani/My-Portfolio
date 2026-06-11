@@ -91,19 +91,19 @@ function CardFace({
 }) {
   if (card.image) {
     return (
-      <div className="relative w-full h-full bg-[#0d1117]">
+      <div className="relative w-full h-full bg-[var(--pf-bg)]">
         <CardImage card={card} />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1c2128] to-[#161b22]">
+    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--pf-surface-muted)] to-[var(--pf-surface)]">
       <div className="text-center">
-        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[#58a6ff]/10 border border-[#58a6ff]/30 flex items-center justify-center">
-          <span className="text-[#58a6ff] text-2xl font-bold">{card.id}</span>
+        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[var(--pf-surface)] border border-[var(--pf-border)] flex items-center justify-center shadow-[var(--pf-shadow-sm)]">
+          <span className="text-[var(--pf-accent)] text-2xl font-bold">{card.id}</span>
         </div>
-        <p className="text-[#8b949e] text-sm">{card.label}</p>
+        <p className="text-[var(--pf-text-muted)] text-sm">{card.label}</p>
         {showHint && (
           <p className="text-[#6e7681] text-xs mt-1">Click for next</p>
         )}
@@ -191,9 +191,9 @@ export function StackedCardCarousel({
                       }
                     : undefined
                 }
-                className={`h-full w-full rounded-lg border border-[#30363d] bg-[#161b22] overflow-hidden ${
+                className={`h-full w-full rounded-lg border border-[var(--pf-border)] bg-[var(--pf-surface)] overflow-hidden shadow-[var(--pf-shadow-sm)] ${
                   isFront
-                    ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#58a6ff]"
+                    ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pf-accent)]"
                     : "pointer-events-none"
                 }`}
                 aria-label={
@@ -214,7 +214,7 @@ export function StackedCardCarousel({
           type="button"
           onClick={prevSlide}
           disabled={isAnimating}
-          className="w-8 h-8 rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] hover:border-[#58a6ff] hover:text-[#58a6ff] transition-colors flex items-center justify-center disabled:opacity-50"
+          className="w-8 h-8 rounded-full border border-[var(--pf-border)] bg-[var(--pf-surface)] text-[var(--pf-text-muted)] hover:border-[var(--pf-accent)] hover:text-[var(--pf-accent)] transition-colors flex items-center justify-center disabled:opacity-50 shadow-[var(--pf-shadow-sm)]"
           aria-label="Previous card"
         >
           <ChevronLeft className="w-4 h-4" />
@@ -229,8 +229,8 @@ export function StackedCardCarousel({
               disabled={isAnimating}
               className={`h-2 rounded-full transition-all disabled:opacity-50 ${
                 index === currentSlide
-                  ? "w-6 bg-[#58a6ff]"
-                  : "w-2 bg-[#30363d] hover:bg-[#484f58]"
+                  ? "w-6 bg-[var(--pf-accent)]"
+                  : "w-2 bg-[var(--pf-border)] hover:bg-[var(--pf-text-subtle)]"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -241,7 +241,7 @@ export function StackedCardCarousel({
           type="button"
           onClick={nextSlide}
           disabled={isAnimating}
-          className="w-8 h-8 rounded-full border border-[#30363d] bg-[#161b22] text-[#8b949e] hover:border-[#58a6ff] hover:text-[#58a6ff] transition-colors flex items-center justify-center disabled:opacity-50"
+          className="w-8 h-8 rounded-full border border-[var(--pf-border)] bg-[var(--pf-surface)] text-[var(--pf-text-muted)] hover:border-[var(--pf-accent)] hover:text-[var(--pf-accent)] transition-colors flex items-center justify-center disabled:opacity-50 shadow-[var(--pf-shadow-sm)]"
           aria-label="Next card"
         >
           <ChevronRight className="w-4 h-4" />

@@ -1,5 +1,7 @@
 import React from "react";
 import { Badge } from "./ui/badge";
+import { HighlightSweepText } from "./HighlightSweepText";
+import { Re4TitleText } from "./Re4TitleText";
 import { ConnectOptions } from "./ConnectOptions";
 import { FeaturedProjects } from "./FeaturedProjects";
 import { StackedCardCarousel } from "./StackedCardCarousel";
@@ -69,16 +71,16 @@ export function Hero() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-gray-300">
+    <div className="min-h-screen bg-[var(--pf-bg)] text-[var(--pf-text-muted)] transition-colors duration-200">
       <div className="max-w-5xl mx-auto px-8 py-16 space-y-16">
         {/* Know About Me Section */}
         <section className="re4-save-ui">
           <header className="re4-projects-header flex items-center gap-3">
-            <div className="h-0.5 w-6 shrink-0 bg-[#58a6ff]/80" />
+            <div className="h-0.5 w-6 shrink-0 bg-[var(--pf-accent)]/80" />
             <div>
               <h2 className="re4-projects-header__title">Know About Me</h2>
               <p className="re4-projects-header__sub">
-                Continue — agent dossier
+                Continue — agent Leon S. Kennedy
               </p>
             </div>
           </header>
@@ -87,28 +89,31 @@ export function Hero() {
             <StackedCardCarousel cards={carouselImages} showHint={false} />
 
             <div className="space-y-5 md:pl-6 lg:pl-10">
-              <h3 className="text-xl text-white font-semibold">
+              <HighlightSweepText
+                as="h3"
+                className="text-xl font-semibold text-[var(--pf-text)]"
+              >
                 Hello! I&apos;m Haani Shahrul
-              </h3>
-              <p className="text-[#8b949e] leading-relaxed">
-                Computer Science student at Universiti Poly-Tech Malaysia
-                in Kuala Lumpur. I build full-stack web applications, from PHP staff systems during
-                my diploma internship to my latest TypeScript AI project, C.A.T.E.
+              </HighlightSweepText>
+              <p className="text-justify text-[var(--pf-text-muted)] leading-relaxed">
+                An AI engineer and full-stack developer based in Kuala Lumpur and the founder of
+                C.A.T.E., an award-winning AI assistant that won Best Paper at ICAR 2025 and holds
+                registered copyright. I build things that actually ship, from a live enterprise HR
+                system deployed solo during my internship at Glosev, to an IBM Watsonx.ai-powered
+                assistant with published academic research behind it. My work sits at the
+                intersection of AI engineering and real product delivery.
               </p>
-              <p className="text-[#8b949e] leading-relaxed">
-                I enjoy turning ideas into working software, learning through real projects on
-                GitHub, and exploring AI, including published research on context-aware learning
-                tools. This portfolio uses a{" "}
-                <span className="text-[#c9a227]">Resident Evil 4</span> theme because I&apos;m a
-                fan of Leon S. Kennedy. If you&apos;d like to collaborate, discuss a role, or
-                connect, feel free to reach out through the Options section below.
+              <p className="text-justify text-[var(--pf-text-muted)] leading-relaxed">
+                This portfolio is themed around <Re4TitleText className="font-medium" /> because
+                Leon S. Kennedy never stops moving forward and neither do I. If you&apos;re looking
+                for someone who builds, ships, and keeps learning, let&apos;s talk.
               </p>
               <div className="flex flex-wrap gap-2 pt-4">
                 {GITHUB_SKILLS.map((tech) => (
                   <Badge
                     key={tech}
                     variant="secondary"
-                    className="bg-[#1c2128] border-[#30363d] text-[#58a6ff] hover:bg-[#262c36]"
+                    className="bg-[var(--pf-surface-muted)] border-[var(--pf-border)] text-[var(--pf-accent)] hover:bg-[var(--pf-surface)] shadow-[var(--pf-shadow-sm)]"
                   >
                     {tech}
                   </Badge>
