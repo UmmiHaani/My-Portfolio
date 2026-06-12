@@ -4,6 +4,7 @@ import { Re4AmmoHud } from "./components/Re4AmmoHud";
 import { SiteSidebar } from "./components/SiteSidebar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { useTheme } from "./hooks/useTheme";
+import { ExperiencePage } from "./pages/ExperiencePage";
 import { HomePage } from "./pages/HomePage";
 import { PlaceholderPage } from "./pages/PlaceholderPage";
 import { SidebarInset, SidebarProvider } from "./components/ui/sidebar";
@@ -21,7 +22,7 @@ function AppContent() {
       <SidebarInset className="scroll-smooth bg-[var(--pf-bg)] transition-colors duration-200">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/experience" element={<PlaceholderPage />} />
+          <Route path="/experience" element={<ExperiencePage />} />
           <Route path="/projects" element={<PlaceholderPage />} />
           <Route path="/blogs" element={<PlaceholderPage />} />
           <Route path="/contact" element={<PlaceholderPage />} />
