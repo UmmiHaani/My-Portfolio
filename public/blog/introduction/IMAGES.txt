@@ -1,0 +1,13 @@
+LOG-001 — Introduction (Personal frames)
+Folder: public/blog/introduction/
+
+One photo per school — caption is the school name only.
+
+Rename your images to:
+
+  01-montessori-school.jpg              Montessori School
+  02-ibn-sina-school.jpg                Ibn Sina School
+  03-smka-dato-haji-abbas.jpg           SMKA Dato Haji Abbas
+  04-university-poly-tech-malaysia.jpg  University Poly-Tech Malaysia
+
+Used on: /blogs/introduction

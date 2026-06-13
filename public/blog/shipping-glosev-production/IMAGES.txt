@@ -1,0 +1,12 @@
+LOG-004 — Shipping Glosev
+Folder: public/blog/shipping-glosev-production/
+
+Rename your images to:
+
+  01-innovathon-start.jpg   Innovathon RTM event (optional cover)
+  02-team-frame.jpg         Team at Innovathon (cover)
+  03-bangsar-morning-walk.jpg  Bangsar morning walk
+  04-live-ui.png            Glosev dashboard screenshot
+  05-production-login.png   Production login page
+
+Used on: /blogs/shipping-glosev-production

@@ -20,7 +20,6 @@ import {
   useSidebar,
 } from "./ui/sidebar";
 
-/** Drop photos at `public/profile/light-mode/avatar.jpg` and `public/profile/dark-mode/avatar.jpg`. */
 const PROFILE_IMAGE = {
   light: "/profile/light-mode/avatar.jpg",
   dark: "/profile/dark-mode/avatar.jpg",

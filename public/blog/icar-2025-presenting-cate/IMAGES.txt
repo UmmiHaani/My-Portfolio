@@ -1,0 +1,10 @@
+LOG-002 — ICAR 2025 presenting C.A.T.E.
+Folder: public/blog/icar-2025-presenting-cate/
+
+Rename your images to:
+
+  01-opening-slide.jpg    Presenting at ICAR — opening slide (cover)
+  02-poster.jpg           Research poster
+  03-live-demo-ui.png     C.A.T.E. live demo UI screenshot
+
+Used on: /blogs/icar-2025-presenting-cate

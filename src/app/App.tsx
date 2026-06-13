@@ -5,8 +5,9 @@ import { SiteSidebar } from "./components/SiteSidebar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { useTheme } from "./hooks/useTheme";
 import { ExperiencePage } from "./pages/ExperiencePage";
+import { BlogPostPage } from "./pages/BlogPostPage";
+import { BlogsPage } from "./pages/BlogsPage";
 import { HomePage } from "./pages/HomePage";
-import { PlaceholderPage } from "./pages/PlaceholderPage";
 import { ToolsPage } from "./pages/ToolsPage";
 import { SidebarInset, SidebarProvider } from "./components/ui/sidebar";
 import { Toaster } from "sonner";
@@ -25,7 +26,8 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ExperiencePage />} />
           <Route path="/experience" element={<Navigate to="/projects" replace />} />
-          <Route path="/blogs" element={<PlaceholderPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blogs/:slug" element={<BlogPostPage />} />
           <Route path="/tools" element={<ToolsPage />} />
         </Routes>
       </SidebarInset>
