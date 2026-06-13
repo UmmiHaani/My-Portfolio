@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import type { TimelineMilestone } from "../../data/experience";
+import type { TimelineMilestone } from "../../data/projects";
 
-interface ExperienceIntelPanelProps {
+interface ProjectDetailPanelProps {
   milestone: TimelineMilestone;
 }
 
@@ -20,7 +20,7 @@ function IntelBlock({
   );
 }
 
-export function ExperienceIntelPanel({ milestone }: ExperienceIntelPanelProps) {
+export function ProjectDetailPanel({ milestone }: ProjectDetailPanelProps) {
   const isExternal =
     milestone.link?.href.startsWith("http") ?? false;
 

@@ -1,29 +1,10 @@
 import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import type { BlogCategory } from "../../data/blogs";
-import { blogPosts, sortBlogPosts } from "../../data/blogs";
-import { BlogFilterBar } from "../../components/blogs/BlogFilterBar";
-import { BlogLogRow } from "../../components/blogs/BlogLogRow";
-import { SiteFooter } from "../../components/SiteFooter";
-
-const listVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.12,
-    },
-  },
-};
-
-const rowVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
-  },
-};
+import type { BlogCategory } from "../data/blogs";
+import { blogPosts, sortBlogPosts } from "../data/blogs";
+import { BlogFilterBar } from "../components/blogs/BlogFilterBar";
+import { BlogLogRow } from "../components/blogs/BlogLogRow";
+import { SiteFooter } from "../components/SiteFooter";
 
 export function BlogsPage() {
   const reducedMotion = useReducedMotion();
@@ -61,21 +42,13 @@ export function BlogsPage() {
 
           <section className="blog-log" aria-label="Transmission log entries">
             {filteredPosts.length > 0 ? (
-              <motion.ul
-                className="blog-log__list"
-                initial={reducedMotion ? false : "hidden"}
-                animate="visible"
-                variants={reducedMotion ? undefined : listVariants}
-              >
+              <ul className="blog-log__list">
                 {filteredPosts.map((post) => (
-                  <motion.li
-                    key={post.slug}
-                    variants={reducedMotion ? undefined : rowVariants}
-                  >
+                  <li key={post.slug}>
                     <BlogLogRow post={post} />
-                  </motion.li>
+                  </li>
                 ))}
-              </motion.ul>
+              </ul>
             ) : (
               <p className="blog-log__empty re4-save-prompt">
                 No entries in this category yet.

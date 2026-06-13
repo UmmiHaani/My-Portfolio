@@ -1,21 +1,21 @@
-import type { TimelineGalleryImage } from "../../data/experience";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import type { TimelineGalleryImage } from "../../data/projects";
+import { ImageWithFallback } from "../common/ImageWithFallback";
 
-interface ExperienceImageGalleryProps {
+interface ProjectImageGalleryProps {
   label?: string;
   images: TimelineGalleryImage[];
 }
 
-export function ExperienceImageGallery({
+export function ProjectImageGallery({
   label,
   images,
-}: ExperienceImageGalleryProps) {
+}: ProjectImageGalleryProps) {
   if (images.length === 0) return null;
 
   return (
     <div className="exp-gallery">
       {label ? <p className="exp-gallery__label">{label}</p> : null}
-      <ul className="exp-gallery__grid" aria-label={label ?? "Experience photos"}>
+      <ul className="exp-gallery__grid" aria-label={label ?? "Project photos"}>
         {images.map((image) => (
           <li key={image.src} className="exp-gallery__item">
             <div

@@ -1,5 +1,5 @@
 import type { Theme } from "../hooks/useTheme";
-import type { TimelineGalleryImage, TimelineImage } from "../data/experience";
+import type { TimelineGalleryImage, TimelineImage } from "../data/projects";
 
 export function resolveThemedImageSrc(
   image: Pick<TimelineImage, "src" | "srcByTheme">,

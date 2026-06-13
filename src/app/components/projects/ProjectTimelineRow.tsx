@@ -1,20 +1,20 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import type { TimelineMilestone } from "../../data/experience";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
-import { ExperienceImageGallery } from "./ExperienceImageGallery";
-import { ExperienceIntelPanel } from "./ExperienceIntelPanel";
-import { ExperienceThemedImage } from "./ExperienceThemedImage";
+import type { TimelineMilestone } from "../../data/projects";
+import { ImageWithFallback } from "../common/ImageWithFallback";
+import { ProjectImageGallery } from "./ProjectImageGallery";
+import { ProjectDetailPanel } from "./ProjectDetailPanel";
+import { ProjectThemedImage } from "./ProjectThemedImage";
 
-interface ExperienceTimelineRowProps {
+interface ProjectTimelineRowProps {
   milestone: TimelineMilestone;
   index: number;
 }
 
-export function ExperienceTimelineRow({
+export function ProjectTimelineRow({
   milestone,
   index,
-}: ExperienceTimelineRowProps) {
+}: ProjectTimelineRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const inView = useInView(rowRef, { once: true, margin: "-80px" });
   const reducedMotion = useReducedMotion();
@@ -73,7 +73,7 @@ export function ExperienceTimelineRow({
               ].join(" ")}
             >
               {milestone.image.srcByTheme ? (
-                <ExperienceThemedImage
+                <ProjectThemedImage
                   image={milestone.image}
                   className="exp-timeline__thumb-image"
                 />
@@ -116,7 +116,7 @@ export function ExperienceTimelineRow({
               </ul>
 
               {milestone.spotlight.images?.length ? (
-                <ExperienceImageGallery
+                <ProjectImageGallery
                   label={milestone.spotlight.imagesLabel}
                   images={milestone.spotlight.images}
                 />
@@ -127,7 +127,7 @@ export function ExperienceTimelineRow({
           <p className="exp-timeline__description">{milestone.description}</p>
 
           {milestone.gallery?.length ? (
-            <ExperienceImageGallery
+            <ProjectImageGallery
               label={milestone.galleryLabel}
               images={milestone.gallery}
             />
@@ -153,7 +153,7 @@ export function ExperienceTimelineRow({
         animate={show ? { opacity: 1, x: 0 } : { opacity: 0, x: intelOffset }}
         transition={{ duration: 0.45, ease, delay: reducedMotion ? 0 : 0.1 }}
       >
-        <ExperienceIntelPanel milestone={milestone} />
+        <ProjectDetailPanel milestone={milestone} />
       </motion.div>
     </motion.article>
   );

@@ -1,4 +1,3 @@
-/** Drop your MP3s in public/audio/ */
 export const UI_CLICK_AUDIO = "/audio/re4-ui-click.mp3";
 export const TITLE_THEME_AUDIO = "/audio/re4-title-theme.mp3";
 export const TITLE_NAV_AUDIO = "/audio/re4-title-nav.mp3";

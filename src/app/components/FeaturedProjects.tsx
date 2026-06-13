@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useSpring } from "motion/react";
 import { Github } from "lucide-react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { ImageWithFallback } from "./common/ImageWithFallback";
 import { SaveRoomCorner } from "./SaveRoomCorner";
 import { useIsMobile } from "./ui/use-mobile";
 import { playUiClickSound } from "../lib/re4Audio";

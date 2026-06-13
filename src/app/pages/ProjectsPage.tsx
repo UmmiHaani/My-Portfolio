@@ -1,7 +1,7 @@
-import { ExperienceTimeline } from "../components/experience/ExperienceTimeline";
+import { ProjectTimeline } from "../components/projects/ProjectTimeline";
 import { SiteFooter } from "../components/SiteFooter";
 
-export function ExperiencePage() {
+export function ProjectsPage() {
   return (
     <>
       <div className="re4-save-ui bg-[var(--pf-bg)] text-[var(--pf-text-muted)] transition-colors duration-200">
@@ -16,7 +16,7 @@ export function ExperiencePage() {
             </div>
           </header>
 
-          <ExperienceTimeline />
+          <ProjectTimeline />
         </div>
       </div>
       <SiteFooter />

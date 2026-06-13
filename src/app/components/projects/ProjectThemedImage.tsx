@@ -1,17 +1,17 @@
-import type { TimelineImage } from "../../data/experience";
+import type { TimelineImage } from "../../data/projects";
 import { useTheme } from "../../hooks/useTheme";
 import { resolveThemedImageSrc } from "../../lib/resolveThemedImage";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { ImageWithFallback } from "../common/ImageWithFallback";
 
-interface ExperienceThemedImageProps {
+interface ProjectThemedImageProps {
   image: TimelineImage;
   className?: string;
 }
 
-export function ExperienceThemedImage({
+export function ProjectThemedImage({
   image,
   className,
-}: ExperienceThemedImageProps) {
+}: ProjectThemedImageProps) {
   const { theme } = useTheme();
 
   return (

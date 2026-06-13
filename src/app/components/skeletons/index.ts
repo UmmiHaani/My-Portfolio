@@ -1,18 +1,18 @@
 import type { ComponentType } from "react";
 import { BlogsSkeleton } from "./BlogsSkeleton";
-import { ExperienceSkeleton } from "./ExperienceSkeleton";
+import { ProjectsSkeleton } from "./ProjectsSkeleton";
 import { FeaturedProjectsSkeleton } from "./FeaturedProjectsSkeleton";
 import { ToolsSkeleton } from "./ToolsSkeleton";
 
 export const ROUTE_SKELETON: Record<string, ComponentType> = {
-  "/projects": ExperienceSkeleton,
+  "/projects": ProjectsSkeleton,
   "/blogs": BlogsSkeleton,
   "/tools": ToolsSkeleton,
 };
 
 export {
   BlogsSkeleton,
-  ExperienceSkeleton,
+  ProjectsSkeleton,
   FeaturedProjectsSkeleton,
   ToolsSkeleton,
 };

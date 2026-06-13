@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { BlogAlbumImage } from "../../data/blogs";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { ImageWithFallback } from "../common/ImageWithFallback";
 
 interface BlogLightboxProps {
   open: boolean;

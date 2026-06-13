@@ -48,7 +48,7 @@ function TimelineRowSkeleton({ align }: { align: "left" | "right" }) {
   );
 }
 
-export function ExperienceSkeleton() {
+export function ProjectsSkeleton() {
   return (
     <SkeletonSection>
       <SkeletonHeader />

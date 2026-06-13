@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import type { BlogAlbumImage } from "../../data/blogs";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { ImageWithFallback } from "../common/ImageWithFallback";
 import { BlogLightbox } from "./BlogLightbox";
 
 interface BlogVisualAnnexProps {
