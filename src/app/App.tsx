@@ -5,8 +5,8 @@ import { SiteSidebar } from "./components/SiteSidebar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { useTheme } from "./hooks/useTheme";
 import { ExperiencePage } from "./pages/ExperiencePage";
-import { BlogPostPage } from "./pages/BlogPostPage";
-import { BlogsPage } from "./pages/BlogsPage";
+import { BlogPostPage } from "./pages/blogs/BlogPostPage";
+import { BlogsPage } from "./pages/blogs/BlogsPage";
 import { HomePage } from "./pages/HomePage";
 import { ToolsPage } from "./pages/ToolsPage";
 import { SidebarInset, SidebarProvider } from "./components/ui/sidebar";
@@ -27,6 +27,10 @@ function AppContent() {
           <Route path="/projects" element={<ExperiencePage />} />
           <Route path="/experience" element={<Navigate to="/projects" replace />} />
           <Route path="/blogs" element={<BlogsPage />} />
+          <Route
+            path="/blogs/two-pointer-pattern-notes"
+            element={<Navigate to="/blogs/hash-map-two-sum" replace />}
+          />
           <Route path="/blogs/:slug" element={<BlogPostPage />} />
           <Route path="/tools" element={<ToolsPage />} />
         </Routes>

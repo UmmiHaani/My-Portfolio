@@ -1,5 +1,3 @@
-/* Blogs — transmission log + visual annex */
-
 .blog-filters {
   display: flex;
   flex-wrap: wrap;
@@ -130,8 +128,6 @@
   color: var(--pf-text-subtle);
 }
 
-/* Post detail */
-
 .blog-post-back {
   display: inline-flex;
   align-items: center;
@@ -199,8 +195,6 @@
   }
 }
 
-/* Prose */
-
 .blog-prose__heading {
   margin: 1.35rem 0 0.55rem;
   font-size: 0.78rem;
@@ -236,8 +230,6 @@
   line-height: 1.5;
   color: var(--pf-text);
 }
-
-/* Education timeline — reuses tools-pipeline layout */
 
 .blog-edu-pipeline {
   margin: 0.35rem 0 1rem;
@@ -312,8 +304,6 @@
     min-width: 4.75rem;
   }
 }
-
-/* Visual annex */
 
 .blog-annex {
   padding: 0.75rem;
@@ -442,8 +432,6 @@
   margin: 0.5rem 0 0;
   text-align: center;
 }
-
-/* Lightbox */
 
 .blog-lightbox {
   display: flex;
