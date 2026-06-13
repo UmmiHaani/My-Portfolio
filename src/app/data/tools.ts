@@ -99,7 +99,7 @@ export const proofDocuments: ProofDocument[] = [
     code: "DOC-03",
     title: "C.A.T.E. Copyright",
     subtitle: "Registered assistant IP",
-    href: "/experience",
+    pdfUrl: "/certificates/CATE-Copyright.pdf",
   },
   {
     id: "live-systems",
@@ -116,7 +116,7 @@ export const stackRecipes: StackRecipe[] = [
     output: "C.A.T.E. AI Agent",
     deployedOn: [
       { label: "Live demo", href: "https://c-a-t-e-ai-agent.vercel.app" },
-      { label: "Mission log", href: "/experience" },
+      { label: "Mission log", href: "/projects" },
     ],
     lore: "Award-winning agent stack — conversational UI, streaming, and tool routing in production.",
   },
@@ -126,7 +126,7 @@ export const stackRecipes: StackRecipe[] = [
     output: "Glosev HR Portal",
     deployedOn: [
       { label: "Live site", href: "https://glosev.com/login/index.php" },
-      { label: "Mission log", href: "/experience" },
+      { label: "Mission log", href: "/projects" },
     ],
     lore: "Solo-deployed enterprise leave & claims system during internship — sign-in, RBAC, cron jobs.",
   },
@@ -169,7 +169,7 @@ export const toolCategories: ToolCategory[] = [
     ],
     link: {
       label: "Mission log — C.A.T.E.",
-      href: "/experience",
+      href: "/projects",
     },
   },
   {

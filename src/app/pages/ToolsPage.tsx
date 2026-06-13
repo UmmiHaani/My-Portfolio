@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "motion/react";
 import { proofDocuments, pipelineSteps, stackRecipes } from "../data/tools";
 import { ToolsLocker } from "../components/tools/ToolsLocker";
 import { ToolsHudStats } from "../components/tools/ToolsHudStats";
@@ -8,9 +9,16 @@ import { ToolsStackRecipes } from "../components/tools/ToolsStackRecipes";
 import { SiteFooter } from "../components/SiteFooter";
 
 export function ToolsPage() {
+  const reducedMotion = useReducedMotion();
+
   return (
     <>
-      <div className="re4-save-ui bg-[var(--pf-bg)] text-[var(--pf-text-muted)] transition-colors duration-200">
+      <motion.div
+        className="re4-save-ui bg-[var(--pf-bg)] text-[var(--pf-text-muted)] transition-colors duration-200"
+        initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
         <div className="mx-auto max-w-5xl px-8 pt-16 pb-8">
           <header className="re4-projects-header mb-6 flex items-center gap-3">
             <div className="h-0.5 w-6 shrink-0 bg-[var(--pf-accent)]/80" />
@@ -33,7 +41,7 @@ export function ToolsPage() {
             <ToolsLocker />
           </ToolsLockerPanel>
         </div>
-      </div>
+      </motion.div>
       <SiteFooter />
     </>
   );

@@ -3,8 +3,8 @@ export function SiteFooter() {
 
   return (
     <footer className="re4-save-ui border-t border-[var(--pf-border)] bg-[var(--pf-bg-elevated)] transition-colors duration-200">
-      <div className="mx-auto max-w-5xl px-8 py-7">
-        <div className="flex items-start gap-4">
+      <div className="mx-auto max-w-5xl px-8 py-4">
+        <div className="flex items-start gap-3">
           <img
             src="/logo.png"
             alt=""
@@ -18,13 +18,13 @@ export function SiteFooter() {
             <p className="mt-1 text-xs tracking-[0.14em] text-[var(--pf-text-subtle)] uppercase">
               Computer Science · Portfolio
             </p>
-            <p className="re4-save-prompt mt-3 text-xs">
+            <p className="re4-save-prompt mt-2 text-xs">
               — Transmission complete —
             </p>
           </div>
         </div>
 
-        <div className="mt-5 border-t border-[var(--pf-border-subtle)] pt-4">
+        <div className="mt-3 border-t border-[var(--pf-border-subtle)] pt-2.5">
           <p className="text-xs tracking-[0.06em] text-[var(--pf-text-muted)]">
             © {year} Haani Shahrul. Built with care — not affiliated with
             Capcom.

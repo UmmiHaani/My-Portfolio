@@ -5,7 +5,7 @@ import { FeaturedProjectsSkeleton } from "./FeaturedProjectsSkeleton";
 import { ToolsSkeleton } from "./ToolsSkeleton";
 
 export const ROUTE_SKELETON: Record<string, ComponentType> = {
-  "/experience": ExperienceSkeleton,
+  "/projects": ExperienceSkeleton,
   "/blogs": BlogsSkeleton,
   "/tools": ToolsSkeleton,
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { BookOpen, Briefcase, Home, Wrench } from "lucide-react";
+import { BookOpen, ExternalLink, FolderKanban, Github, Home, Instagram, Mail, Wrench, Youtube } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
+import { playUiClickSound } from "../lib/re4Audio";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -9,6 +10,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -19,12 +21,23 @@ import {
 
 /** Drop your photo at `public/profile/avatar.jpg` or update this path. */
 const PROFILE_IMAGE_SRC = "/profile/avatar.jpg";
+const CONTACT_EMAIL = "shahrulhaani@gmail.com";
+const GITHUB_URL = "https://github.com/UmmiHaani";
+const INSTAGRAM_URL = "https://instagram.com/ummihaani";
+const YOUTUBE_URL = "https://youtube.com/@ummihaani";
 
 const NAV_ITEMS = [
   { label: "Home", icon: Home, path: "/" },
-  { label: "Experience", icon: Briefcase, path: "/experience" },
+  { label: "Projects", icon: FolderKanban, path: "/projects" },
   { label: "Blogs", icon: BookOpen, path: "/blogs" },
   { label: "Tools", icon: Wrench, path: "/tools" },
+] as const;
+
+const SOCIAL_ITEMS = [
+  { label: "Instagram", icon: Instagram, href: INSTAGRAM_URL, external: true },
+  { label: "GitHub", icon: Github, href: GITHUB_URL, external: true },
+  { label: "Email", icon: Mail, href: `mailto:${CONTACT_EMAIL}`, external: false },
+  { label: "YouTube", icon: Youtube, href: YOUTUBE_URL, external: true },
 ] as const;
 
 const ROLE_PHRASES = [
@@ -120,6 +133,34 @@ function TypewriterRole({
   );
 }
 
+function SidebarAvailability() {
+  return (
+    <div className="mt-4 border-t border-sidebar-border px-2 pt-3">
+      <a
+        href={`mailto:${CONTACT_EMAIL}`}
+        className="sidebar-availability__link group block rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+        aria-label="Reach out via email"
+        onClick={() => playUiClickSound()}
+      >
+        <div className="sidebar-availability__viewport h-6 overflow-hidden">
+          <div className="sidebar-availability__stack flex flex-col transition-transform duration-500 ease-out">
+            <span className="flex h-6 items-center gap-2 text-sm tracking-[0.02em] text-sidebar-foreground/80">
+              <span className="sidebar-availability__dot shrink-0" aria-hidden />
+              <span className="border-b border-dashed border-sidebar-foreground/35 pb-px">
+                Available for work
+              </span>
+            </span>
+            <span className="flex h-6 items-center gap-2 text-sm tracking-[0.02em] text-sidebar-foreground/80">
+              <Mail className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden />
+              Reach out
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+  );
+}
+
 function SidebarProfile() {
   return (
     <div className="flex min-w-0 items-start gap-3 px-1">
@@ -155,8 +196,11 @@ function SiteSidebarNav() {
   };
 
   return (
-    <SidebarGroup className="pl-4">
-      <SidebarGroupContent>
+    <SidebarGroup className="px-4 pt-3">
+      <SidebarGroupLabel className="mb-1 h-auto px-0 py-0 text-[10px] font-normal uppercase tracking-[0.18em] text-sidebar-foreground/50">
+        Navigation
+      </SidebarGroupLabel>
+      <SidebarGroupContent className="px-0">
         <SidebarMenu>
           {NAV_ITEMS.map(({ label, icon: Icon, path }) => {
             const active = isActive(path);
@@ -182,6 +226,54 @@ function SiteSidebarNav() {
   );
 }
 
+function SiteSidebarSocial() {
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const handleClick = () => {
+    playUiClickSound();
+    if (isMobile) setOpenMobile(false);
+  };
+
+  return (
+    <SidebarGroup className="mt-16 px-4 pt-0">
+      <div className="mb-3 border-t border-sidebar-border" aria-hidden />
+      <SidebarGroupLabel className="mb-1 h-auto px-0 py-0 text-[10px] font-normal uppercase tracking-[0.18em] text-sidebar-foreground/50">
+        Connect
+      </SidebarGroupLabel>
+      <SidebarGroupContent className="px-0">
+        <SidebarMenu>
+          {SOCIAL_ITEMS.map(({ label, icon: Icon, href, external }) => (
+            <SidebarMenuItem key={label}>
+              <SidebarMenuButton
+                asChild
+                className="h-10 text-[15px] tracking-[0.02em]"
+              >
+                <a
+                  href={href}
+                  {...(external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  onClick={handleClick}
+                >
+                  <Icon strokeWidth={1.75} />
+                  <span>{label}</span>
+                  {external ? (
+                    <ExternalLink
+                      className="ml-auto h-3.5 w-3.5 shrink-0 opacity-50"
+                      strokeWidth={1.75}
+                      aria-hidden
+                    />
+                  ) : null}
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  );
+}
+
 export function SiteSidebar() {
   return (
     <>
@@ -191,10 +283,12 @@ export function SiteSidebar() {
       >
         <SidebarHeader className="border-b border-sidebar-border px-4 py-5">
           <SidebarProfile />
+          <SidebarAvailability />
         </SidebarHeader>
 
         <SidebarContent>
           <SiteSidebarNav />
+          <SiteSidebarSocial />
         </SidebarContent>
 
         <SidebarFooter className="border-t border-sidebar-border p-4">

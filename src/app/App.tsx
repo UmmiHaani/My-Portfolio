@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { Re4AmmoHud } from "./components/Re4AmmoHud";
 import { SiteSidebar } from "./components/SiteSidebar";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -23,7 +23,8 @@ function AppContent() {
       <SidebarInset className="scroll-smooth bg-[var(--pf-bg)] transition-colors duration-200">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/experience" element={<ExperiencePage />} />
+          <Route path="/projects" element={<ExperiencePage />} />
+          <Route path="/experience" element={<Navigate to="/projects" replace />} />
           <Route path="/blogs" element={<PlaceholderPage />} />
           <Route path="/tools" element={<ToolsPage />} />
         </Routes>
