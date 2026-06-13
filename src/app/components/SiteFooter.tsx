@@ -3,7 +3,7 @@ export function SiteFooter() {
 
   return (
     <footer className="re4-save-ui border-t border-[var(--pf-border)] bg-[var(--pf-bg-elevated)] transition-colors duration-200">
-      <div className="mx-auto max-w-5xl px-8 py-10">
+      <div className="mx-auto max-w-5xl px-8 py-7">
         <div className="flex items-start gap-4">
           <img
             src="/logo.png"
@@ -24,7 +24,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-[var(--pf-border-subtle)] pt-6">
+        <div className="mt-5 border-t border-[var(--pf-border-subtle)] pt-4">
           <p className="text-xs tracking-[0.06em] text-[var(--pf-text-muted)]">
             © {year} Haani Shahrul. Built with care — not affiliated with
             Capcom.

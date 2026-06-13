@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 0.5rem 0 2rem;
+  padding: 0.25rem 0 1.25rem;
 }
 
 .exp-timeline__track {
@@ -28,9 +28,9 @@
 .exp-timeline__row {
   display: grid;
   grid-template-columns: 2.75rem minmax(0, 1fr);
-  gap: 1rem 1.25rem;
+  gap: 0.75rem 1rem;
   align-items: start;
-  padding-bottom: 3rem;
+  padding-bottom: 1.75rem;
 }
 
 .exp-timeline__row:last-child {
@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 1.35rem;
+  padding-top: 0.85rem;
   z-index: 1;
 }
 
@@ -91,7 +91,7 @@
   grid-column: 1 / -1;
   min-width: 0;
   padding-left: 3.75rem;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
 }
 
 .exp-timeline__card-slot {
@@ -109,7 +109,7 @@
     var(--pf-surface) 0%,
     var(--pf-bg-elevated) 100%
   );
-  padding: 1.35rem 1.35rem 1.15rem;
+  padding: 1.1rem 1.15rem 0.95rem;
   box-shadow: var(--pf-shadow-sm);
   transition:
     border-color 0.2s ease,
@@ -150,8 +150,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.85rem;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
 .exp-timeline__chapter {
@@ -203,15 +203,15 @@
 }
 
 .exp-timeline__spotlight {
-  margin: 1rem 0 1rem;
-  padding: 1rem 1rem 0.9rem;
+  margin: 0.65rem 0 0.65rem;
+  padding: 0.75rem 0.85rem;
   border: 1px solid rgba(var(--pf-accent-rgb), 0.22);
   border-radius: 0.3rem;
   background: rgba(var(--pf-accent-rgb), 0.04);
 }
 
 .exp-timeline__spotlight-header {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .exp-timeline__spotlight-title {
@@ -256,7 +256,7 @@
 }
 
 .exp-gallery {
-  margin-top: 1rem;
+  margin-top: 0.65rem;
 }
 
 .exp-gallery__label {
@@ -333,7 +333,7 @@
 }
 
 .exp-timeline__description {
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.6rem;
   font-size: 0.92rem;
   line-height: 1.65;
   color: var(--pf-text-muted);
@@ -342,8 +342,8 @@
 .exp-timeline__tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
-  margin: 1rem 0 0;
+  gap: 0.35rem;
+  margin: 0.65rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -360,7 +360,7 @@
 }
 
 .exp-timeline__thumb {
-  margin: 0 0 1.1rem;
+  margin: 0 0 0.75rem;
   overflow: hidden;
   border: 1px solid var(--pf-border-subtle);
   border-radius: 0.3rem;
@@ -426,14 +426,14 @@
 
   .exp-timeline__row {
     grid-template-columns: minmax(0, 1fr) 3.5rem minmax(0, 1fr);
-    column-gap: 2rem;
-    padding-bottom: 4rem;
+    column-gap: 1.35rem;
+    padding-bottom: 2.25rem;
   }
 
   .exp-timeline__node-wrap {
     grid-column: 2;
     grid-row: 1;
-    padding-top: 1.75rem;
+    padding-top: 1.1rem;
   }
 
   .exp-timeline__card-slot {
@@ -456,7 +456,7 @@
     padding-left: 0;
     margin-top: 0;
     align-self: start;
-    padding-top: 1.75rem;
+    padding-top: 1.1rem;
   }
 
   .exp-timeline__row--left .exp-timeline__intel-slot {
@@ -497,7 +497,7 @@
     width: 100%;
     min-height: 100%;
     box-sizing: border-box;
-    padding: 1.5rem 1.5rem 1.25rem;
+    padding: 1.15rem 1.2rem 1rem;
   }
 }
 
@@ -506,7 +506,7 @@
 .exp-intel {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.6rem;
   height: 100%;
 }
 
@@ -532,8 +532,8 @@
 .exp-intel__panel {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-  padding: 0.85rem;
+  gap: 0.5rem;
+  padding: 0.7rem 0.75rem;
   border: 1px solid var(--pf-border);
   border-radius: 0.3rem;
   background: linear-gradient(
@@ -546,7 +546,7 @@
 }
 
 .exp-intel__block + .exp-intel__block {
-  padding-top: 0.65rem;
+  padding-top: 0.5rem;
   border-top: 1px solid var(--pf-border-subtle);
 }
 
@@ -587,7 +587,7 @@
 }
 
 .exp-intel__achievements {
-  padding: 0.75rem 0.85rem;
+  padding: 0.6rem 0.7rem;
   border: 1px dashed var(--pf-border);
   border-radius: 0.25rem;
   background: var(--pf-surface-muted);

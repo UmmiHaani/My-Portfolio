@@ -7,6 +7,7 @@ import { useTheme } from "./hooks/useTheme";
 import { ExperiencePage } from "./pages/ExperiencePage";
 import { HomePage } from "./pages/HomePage";
 import { PlaceholderPage } from "./pages/PlaceholderPage";
+import { ToolsPage } from "./pages/ToolsPage";
 import { SidebarInset, SidebarProvider } from "./components/ui/sidebar";
 import { Toaster } from "sonner";
 
@@ -23,10 +24,8 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/experience" element={<ExperiencePage />} />
-          <Route path="/projects" element={<PlaceholderPage />} />
           <Route path="/blogs" element={<PlaceholderPage />} />
-          <Route path="/contact" element={<PlaceholderPage />} />
-          <Route path="/tools" element={<PlaceholderPage />} />
+          <Route path="/tools" element={<ToolsPage />} />
         </Routes>
       </SidebarInset>
       <Re4AmmoHud />

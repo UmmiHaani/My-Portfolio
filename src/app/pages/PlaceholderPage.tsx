@@ -23,7 +23,7 @@ export function PlaceholderPage() {
 
   return (
     <>
-      <div className="min-h-[60vh] bg-[var(--pf-bg)] transition-colors duration-200" />
+      <div className="min-h-[40vh] bg-[var(--pf-bg)] transition-colors duration-200" />
       <SiteFooter />
     </>
   );

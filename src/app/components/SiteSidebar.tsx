@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  BookOpen,
-  Briefcase,
-  FolderKanban,
-  Home,
-  Mail,
-  Wrench,
-} from "lucide-react";
+import { BookOpen, Briefcase, Home, Wrench } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -30,9 +23,7 @@ const PROFILE_IMAGE_SRC = "/profile/avatar.jpg";
 const NAV_ITEMS = [
   { label: "Home", icon: Home, path: "/" },
   { label: "Experience", icon: Briefcase, path: "/experience" },
-  { label: "Projects", icon: FolderKanban, path: "/projects" },
   { label: "Blogs", icon: BookOpen, path: "/blogs" },
-  { label: "Contact", icon: Mail, path: "/contact" },
   { label: "Tools", icon: Wrench, path: "/tools" },
 ] as const;
 

@@ -71,8 +71,8 @@ export function Hero() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--pf-bg)] text-[var(--pf-text-muted)] transition-colors duration-200">
-      <div className="max-w-5xl mx-auto px-8 py-16 space-y-16">
+    <div className="bg-[var(--pf-bg)] text-[var(--pf-text-muted)] transition-colors duration-200">
+      <div className="max-w-5xl mx-auto px-8 pt-16 pb-8 space-y-16">
         {/* Know About Me Section */}
         <section className="re4-save-ui">
           <header className="re4-projects-header flex items-center gap-3">
