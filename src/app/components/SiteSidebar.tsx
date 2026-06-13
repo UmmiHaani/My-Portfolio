@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BookOpen, ExternalLink, FolderKanban, Github, Home, Instagram, Mail, Wrench, Youtube } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import { playUiClickSound } from "../lib/re4Audio";
+import { useTheme } from "../hooks/useTheme";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -19,12 +20,15 @@ import {
   useSidebar,
 } from "./ui/sidebar";
 
-/** Drop your photo at `public/profile/avatar.jpg` or update this path. */
-const PROFILE_IMAGE_SRC = "/profile/avatar.jpg";
+/** Drop photos at `public/profile/light-mode/avatar.jpg` and `public/profile/dark-mode/avatar.jpg`. */
+const PROFILE_IMAGE = {
+  light: "/profile/light-mode/avatar.jpg",
+  dark: "/profile/dark-mode/avatar.jpg",
+} as const;
 const CONTACT_EMAIL = "shahrulhaani@gmail.com";
 const GITHUB_URL = "https://github.com/UmmiHaani";
-const INSTAGRAM_URL = "https://instagram.com/ummihaani";
-const YOUTUBE_URL = "https://youtube.com/@ummihaani";
+const INSTAGRAM_URL = "https://www.instagram.com/official_haani_shahrul/";
+const YOUTUBE_URL = "https://www.youtube.com/@ItsSleppyFox";
 
 const NAV_ITEMS = [
   { label: "Home", icon: Home, path: "/" },
@@ -144,14 +148,14 @@ function SidebarAvailability() {
       >
         <div className="sidebar-availability__viewport h-6 overflow-hidden">
           <div className="sidebar-availability__stack flex flex-col transition-transform duration-500 ease-out">
-            <span className="flex h-6 items-center gap-2 text-sm tracking-[0.02em] text-sidebar-foreground/80">
+            <span className="flex h-6 items-center gap-2 text-[11px] font-normal uppercase tracking-[0.18em] text-sidebar-foreground/50">
               <span className="sidebar-availability__dot shrink-0" aria-hidden />
               <span className="border-b border-dashed border-sidebar-foreground/35 pb-px">
                 Available for work
               </span>
             </span>
-            <span className="flex h-6 items-center gap-2 text-sm tracking-[0.02em] text-sidebar-foreground/80">
-              <Mail className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden />
+            <span className="flex h-6 items-center gap-2 text-[11px] font-normal uppercase tracking-[0.18em] text-sidebar-foreground/50">
+              <Mail className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
               Reach out
             </span>
           </div>
@@ -162,10 +166,17 @@ function SidebarAvailability() {
 }
 
 function SidebarProfile() {
+  const { theme } = useTheme();
+  const profileSrc = PROFILE_IMAGE[theme];
+
   return (
-    <div className="flex min-w-0 items-start gap-3 px-1">
-      <Avatar className="mt-0.5 h-9 w-9 border border-sidebar-border">
-        <AvatarImage src={PROFILE_IMAGE_SRC} alt="Haani Shahrul" />
+    <div className="flex min-w-0 items-center gap-3 px-2">
+      <Avatar className="size-10 shrink-0 border border-sidebar-border">
+        <AvatarImage
+          src={profileSrc}
+          alt="Haani Shahrul"
+          className="size-full object-cover object-[center_22%]"
+        />
         <AvatarFallback className="bg-sidebar-accent text-xs font-medium uppercase tracking-wider text-sidebar-foreground/70">
           HS
         </AvatarFallback>
