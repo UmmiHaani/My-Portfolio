@@ -284,6 +284,15 @@ function SiteSidebarSocial() {
   );
 }
 
+function MobileSidebarTrigger() {
+  const { openMobile } = useSidebar();
+  if (openMobile) return null;
+
+  return (
+    <SidebarTrigger className="fixed left-4 top-4 z-[140] size-10 rounded-full border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-md hover:bg-sidebar-accent md:hidden" />
+  );
+}
+
 export function SiteSidebar() {
   return (
     <>
@@ -306,7 +315,7 @@ export function SiteSidebar() {
         </SidebarFooter>
       </Sidebar>
 
-      <SidebarTrigger className="fixed left-4 top-4 z-[140] size-10 rounded-full border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-md hover:bg-sidebar-accent md:hidden" />
+      <MobileSidebarTrigger />
     </>
   );
 }
