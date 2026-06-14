@@ -64,24 +64,24 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="light"] {
-  --pf-bg: #f4f4f5;
-  --pf-bg-elevated: #ececec;
-  --pf-surface: #ffffff;
-  --pf-surface-muted: #f0f0f0;
-  --pf-text: #111111;
-  --pf-text-muted: #666666;
-  --pf-text-subtle: #888888;
-  --pf-border: #dddddd;
-  --pf-border-subtle: #e8e8e8;
-  --pf-accent: #111111;
-  --pf-accent-rgb: 17, 17, 17;
-  --pf-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --pf-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --pf-title-overlay: #f4f4f5;
-  --pf-highlight-marker: #d4d4d8;
-  --pf-highlight-cursor: #111111;
+  --pf-bg: #f5f0e8;
+  --pf-bg-elevated: #ebe4d9;
+  --pf-surface: #faf8f5;
+  --pf-surface-muted: #f0ebe3;
+  --pf-text: #1c1917;
+  --pf-text-muted: #57534e;
+  --pf-text-subtle: #78716c;
+  --pf-border: #d6cfc4;
+  --pf-border-subtle: #e7e0d5;
+  --pf-accent: #1c1917;
+  --pf-accent-rgb: 28, 25, 23;
+  --pf-shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.06);
+  --pf-shadow-md: 0 4px 14px rgba(28, 25, 23, 0.08);
+  --pf-title-overlay: #f5f0e8;
+  --pf-highlight-marker: #dcd4c8;
+  --pf-highlight-cursor: #1c1917;
   --pf-re-red: #cc0000;
-  --pf-skeleton: #c8c8c8;
+  --pf-skeleton: #ddd5c8;
 
   --background: var(--pf-bg);
   --foreground: var(--pf-text);

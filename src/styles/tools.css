@@ -868,7 +868,7 @@
 /* Light theme */
 
 html[data-theme="light"] .tools-panel__bg {
-  background: linear-gradient(155deg, #ffffff 0%, #f4f4f5 50%, #ececec 100%);
+  background: linear-gradient(155deg, #faf8f5 0%, #f5f0e8 50%, #ebe4d9 100%);
 }
 
 html[data-theme="light"] .tools-hud {
